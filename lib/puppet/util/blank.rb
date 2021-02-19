@@ -26,8 +26,7 @@ class Object
 end
 
 class String
-  # 0x3000: fullwidth whitespace
-  NON_WHITESPACE_REGEXP = %r{![^\s#{[0x3000].pack("U")}]!}
+  NON_WHITESPACE_REGEXP = %r{[^ 	#{[0x3000].pack("U")}]}
 
   # A string is blank if it's empty or contains whitespaces only:
   #
@@ -37,6 +36,6 @@ class String
   #   " something here ".blank? # => false
   #
   def blank?
-    self !~ NON_WHITESPACE_REGEXP
+    not (self =~ NON_WHITESPACE_REGEXP)
   end
 end
